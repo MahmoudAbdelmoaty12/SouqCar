@@ -1,0 +1,22 @@
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.EntityFrameworkCore;
+using SouqCar.Models;
+
+namespace SouqCar.Context
+{
+    public class SouqCarContext :IdentityDbContext<SouqCarUser>
+    {
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategorySpecifications> CategorySpecifications { get; set; }
+        public DbSet<ProductCategorySpecifications> ProductCategorySpecifications { get; set; }
+        public SouqCarContext(DbContextOptions<SouqCarContext> options)
+           : base(options)
+        {
+        }
+    
+    }
+}
