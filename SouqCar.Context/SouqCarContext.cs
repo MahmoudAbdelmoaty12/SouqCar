@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿
 using Microsoft.EntityFrameworkCore;
 using SouqCar.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SouqCar.Context
 {
-    public class SouqCarContext :IdentityDbContext<SouqCarUser>
+    public class SouqCarContext : IdentityDbContext<SouqCarUser>
     {
+      
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
@@ -13,10 +16,14 @@ namespace SouqCar.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategorySpecifications> CategorySpecifications { get; set; }
         public DbSet<ProductCategorySpecifications> ProductCategorySpecifications { get; set; }
-        public SouqCarContext(DbContextOptions<SouqCarContext> options)
-           : base(options)
+
+        public SouqCarContext(DbContextOptions<SouqCarContext> options) : base(options)
+
         {
         }
-    
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }

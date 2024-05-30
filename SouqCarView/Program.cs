@@ -1,9 +1,11 @@
 
-
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using SouqCar.Context;
+using SouqCar.Models;
 
-namespace SouqCar.view
+
+namespace SouqCarView
 {
     public class Program
     {
@@ -13,20 +15,25 @@ namespace SouqCar.view
 
             // Add services to the container.
             builder.Services.AddDbContext<SouqCarContext>(options =>
-              options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+                 options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+            builder.Services.AddIdentity<SouqCarUser, IdentityRole>().AddEntityFrameworkStores<SouqCarContext>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+  
 
+          
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
